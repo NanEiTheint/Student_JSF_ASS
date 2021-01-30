@@ -1,0 +1,69 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
+
+	<h:head>
+		<ui:include src="/views/res.xhtml" />
+		<title>Add Student</title>
+	</h:head>
+	<body>
+		<div class="container">
+			<ui:include src="/views/menu.xhtml" />
+			<div class="row pt-5 mt-5">
+				<div class="col-6">
+					<h4 class="pb-4">#{studentBean.student.id!=0? "Edit" : "Add"} Student</h4>
+					<h:form styleClass="form">
+						<h:inputText p:type="hidden" value="#{studentBean.student.id}" />
+						<div class="form-group">
+							<label for="name">Student Name</label>
+							<h:inputText value="#{studentBean.student.name}" styleClass="form-control" id="name" p:placeholder="Enter student name" validatorMessage="Required student name!" >
+								<f:validateRequired/>
+							</h:inputText>
+							<p class="text-danger"><h:message for="name"/></p>
+						</div>
+						<div class="form-group">
+							<label for="email">Email</label>
+							<h:inputText p:type="email" value="#{studentBean.student.email}" styleClass="form-control" id="email" p:placeholder="Enter student name" validatorMessage="Required email!" >
+								<f:validateRequired/>
+							</h:inputText>
+							<p class="text-danger"><h:message for="email"/></p>
+						</div>
+						<div class="form-group">
+							<label for="age">Age</label>
+							<h:inputText p:type="number" value="#{studentBean.student.age}" styleClass="form-control" id="age" p:placeholder="Enter student age" validatorMessage="Age must be minimun 16!" >
+								<f:validateLongRange minimum="16"></f:validateLongRange>
+							</h:inputText>
+							<p class="text-danger"><h:message for="age"/></p>
+						</div>
+						<div class="form-group">
+							<label for="year">Year</label>
+							<h:selectOneMenu value="#{studentBean.student.year}" styleClass="form-control">
+								<f:selectItems value="#{studentBean.student.years}" var="c" itemValue="#{c}" itemLabel="#{c}"></f:selectItems>
+							</h:selectOneMenu>
+						</div>
+						<div class="form-group">
+							<label for="address">Address</label>
+							<h:inputText value="#{studentBean.student.address}" styleClass="form-control" id="address" p:placeholder="Enter student addres" validatorMessage="Required address!" >
+								<f:validateRequired/>
+							</h:inputText>
+							<p class="text-danger"><h:message for="address"/></p>
+						</div>
+						<div class="form-group">
+							<label for="dob">Date of Birth</label>
+							<h:inputText p:type="date" value="#{studentBean.student.dob}" styleClass="form-control" id="dob" p:placeholder="Enter student dob" validatorMessage="Required dob!" >
+								<f:convertDateTime type="localDate" pattern="yyyy-MM-dd"/>
+								<f:validateRequired/>
+							</h:inputText>
+							<p class="text-danger"><h:message for="dob"/></p>
+						</div>
+						<h:commandButton action="#{studentBean.save()}" value="Save" styleClass="btn btn-success"/>
+					</h:form>
+				</div>
+			</div>
+		</div>
+		
+	</body>
+</html>

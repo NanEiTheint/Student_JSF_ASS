@@ -1,0 +1,76 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
+
+	<h:head>
+		<ui:include src="/views/res.xhtml" />
+		<title>Add Course</title>
+	</h:head>
+	<body>
+		<div class="container">
+			<ui:include src="/views/menu.xhtml" />
+			<div class="row pt-5 mt-5">
+				<div class="col-6">
+					<h4 class="pb-3">#{courseBean.course.id!=0? "Edit" : "Add"} Course</h4>
+					<h:form styleClass="form">
+						<h:inputText p:type="hidden" value="#{courseBean.course.id}" />
+						<div class="form-group">
+							<label>Course Name</label>
+							<h:inputText value="#{courseBean.course.name}" id="name" styleClass="form-control" p:placeholder="Enter course name" validatorMessage="Required course name!" >
+								<f:validateRequired/>
+							</h:inputText>
+							<p class="text-danger"><h:message for="name"/></p>
+						</div>
+						<div class="form-group">
+							<label>Teacher Name</label>
+							<h:inputText value="#{courseBean.course.teacher.teacher_name}" id="tname" styleClass="form-control" p:placeholder="Enter teacher name" validatorMessage="Required teacher name!" >
+								<f:validateRequired/>
+							</h:inputText>
+							<p class="text-danger"><h:message for="tname"/></p>
+						</div>
+						<div class="form-group">
+							<label>Teacher Phone No.</label>
+							<h:inputText value="#{courseBean.course.teacher.phone}" id="tphone" styleClass="form-control" p:placeholder="Enter teacher phone no." validatorMessage="Required teacher phone no!" >
+								<f:validateRequired/>
+							</h:inputText>
+							<p class="text-danger"><h:message for="tphone"/></p>
+						</div>
+						<div class="form-group">
+							<label>Level</label>
+							<h:selectOneMenu value="#{courseBean.course.level}" styleClass="form-control">
+								<f:selectItems value="#{courseBean.course.levels}" var="c"  itemValue="#{c}" itemLabel="#{c}"></f:selectItems>
+							</h:selectOneMenu>
+						</div>
+						<div class="form-group">
+							<label>Price</label>
+							<h:inputText value="#{courseBean.course.price}" id="price" p:type="number" styleClass="form-control" p:placeholder="Enter price" validatorMessage="Price must be minimun 200000!">
+								<f:validateLongRange minimum="200000"></f:validateLongRange>
+							</h:inputText>
+							<p class="text-danger"><h:message for="price"/></p>
+						</div>
+						<div class="form-group">
+							<label>Duration Months</label>
+							<h:inputText value="#{courseBean.course.duration}" p:type="number" id="duration" styleClass="form-control" p:placeholder="Enter duration months" validatorMessage="Duration month must be minimum 1 month!">
+								<f:validateLongRange minimum="1"></f:validateLongRange>
+							</h:inputText>
+							<p class="text-danger"><h:message for="duration"/></p>
+						</div>
+						<div class="form-group">
+							<label>Start Date</label>
+							<h:inputText value="#{courseBean.course.startDate}" id="date" p:type="date" styleClass="form-control" validatorMessage="Required start date!">
+								<f:convertDateTime type="localDate" pattern="yyyy-MM-dd"/>
+								<f:validateRequired/>
+							</h:inputText>
+							<p class="text-danger"><h:message for="date"/></p>
+						</div>
+						<h:commandButton action="#{courseBean.save()}" value="Save" styleClass="btn btn-success" />
+					</h:form>
+				</div>
+			</div>
+		</div>
+		
+	</body>
+</html>

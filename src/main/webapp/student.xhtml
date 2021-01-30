@@ -1,0 +1,61 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
+
+	<h:head>
+		<ui:include src="/views/res.xhtml" />
+		<title>Student List</title>
+	</h:head>
+	<body>
+		<div class="container">
+			<ui:include src="/views/menu.xhtml" />
+			<div class="row pt-5 mt-5">
+				<div class="col-10">
+					<h4 class="pb-4">Student List</h4>
+					<h:dataTable styleClass="table" value="#{studentBean.studentList}" var="c">
+						<h:column>
+							<f:facet name="header">ID</f:facet>
+							#{c.id}
+						</h:column>
+						<h:column>
+							<f:facet name="header">Name</f:facet>
+							#{c.name}
+						</h:column>
+						<h:column>
+							<f:facet name="header">Email</f:facet>
+							#{c.email}
+						</h:column>
+						<h:column>
+							<f:facet name="header">Address</f:facet>
+							#{c.address}
+						</h:column>
+						<h:column>
+							<f:facet name="header">Year</f:facet>
+							#{c.year}
+						</h:column>
+						<h:column>
+							<f:facet name="header">DOB</f:facet>
+							#{c.dob}
+						</h:column>
+						<h:column>
+							<f:facet name="header">Age</f:facet>
+							#{c.age}
+						</h:column>
+						<h:column>
+							<h:form styleClass="form">
+								<h:link outcome="add-student" value="Edit | ">
+									<f:param name="studentId" value="#{c.id}"></f:param>
+								</h:link>
+								<h:commandLink action="#{studentBean.delete(c.id)}" value="Delete" styleClass="text-danger"/>
+							</h:form>
+						</h:column>
+					</h:dataTable>
+				</div>
+			</div>
+		</div>
+		
+	</body>
+</html>
